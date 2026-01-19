@@ -16,9 +16,6 @@ const __dirname = path.dirname(__filename);
 // Initialize express app
 const app = express();
 
-// Connect Database
-connectDB();
-
 // Middlewares
 app.use(
   cors({
@@ -42,13 +39,25 @@ app.use(notFound);
 
 app.use(errorHandler);
 
-// Run server
+// Connect database and start server
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
 
-process.on("unhandledRejection", (err) => {
+const startServer = async () => {
+  await connectDB();
+
+  app.listen(PORT, () => {
+    console.log(
+      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`,
+    );
+  });
+
+  process.on("unhandledRejection", (err) => {
+    console.error(`Error: ${err.message}`);
+    process.exit(1);
+  });
+};
+
+startServer().catch((err) => {
   console.error(`Error: ${err.message}`);
   process.exit(1);
 });
