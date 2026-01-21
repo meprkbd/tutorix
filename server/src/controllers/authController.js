@@ -137,13 +137,19 @@ export const updateProfile = async (req, res, next) => {
           statusCode: 400,
         });
       }
+      user.username = username;
     }
 
     if (email && email !== user.email) {
       const emailExists = await User.findOne({ email });
       if (emailExists) {
-        return res.status(400).json({ error: "Email already in use" });
+        return res.status(400).json({
+          success: false,
+          error: "Email already in use",
+          statusCode: 400,
+        });
       }
+      user.email = email;
     }
 
     if (avatar) user.avatar = avatar;
@@ -191,7 +197,8 @@ export const changePassword = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "Invalid credentials",
+      message: "Password changed successfully",
+      statusCode: 200,
     });
   } catch (error) {
     next(error);
