@@ -32,7 +32,7 @@ const quizSchema = new mongoose.Schema(
           ],
         },
         correctAnswer: {
-          Type: String,
+          type: String,
           required: true,
         },
         explanation: {
@@ -52,7 +52,7 @@ const quizSchema = new mongoose.Schema(
           type: Number,
           required: true,
         },
-        selectedAnser: {
+        selectedAnswer: {
           type: String,
           required: true,
         },
@@ -62,7 +62,7 @@ const quizSchema = new mongoose.Schema(
         },
         answeredAt: {
           type: Date,
-          default: Data.now,
+          default: Date.now,
         },
       },
     ],
@@ -75,7 +75,7 @@ const quizSchema = new mongoose.Schema(
       required: true,
     },
     completedAt: {
-      type: Data,
+      type: Date,
       default: null,
     },
   },
