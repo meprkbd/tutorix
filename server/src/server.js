@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import { notFound } from "./middlewares/error.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import connectDB from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
 
 // ES6 module __dirname alternative
 const __filename = fileURLToPath(import.meta.url);
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
+app.use("/api/auth", authRoutes);
 
 // 404 handler
 app.use(notFound);
